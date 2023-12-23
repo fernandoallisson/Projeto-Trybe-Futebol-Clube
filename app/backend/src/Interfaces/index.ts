@@ -1,3 +1,4 @@
 import ITeams from './Teams';
+import ITeamsModel from './TeamsModel';
 
-export default ITeams;
+export { ITeams, ITeamsModel };
