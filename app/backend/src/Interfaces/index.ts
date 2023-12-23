@@ -1,3 +1,3 @@
-import ITeams from "./Teams";
+import ITeams from './Teams';
 
-export { ITeams }
+export default ITeams;

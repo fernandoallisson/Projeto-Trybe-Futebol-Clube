@@ -1,9 +1,15 @@
-import { Model, InferAttributes, InferCreationAttributes, CreateOptions, DataTypes } from "sequelize";
-import db from '.'
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  CreateOptions,
+  DataTypes,
+} from 'sequelize';
+import db from '.';
 
 class TeamModelSequelize extends Model<InferAttributes<TeamModelSequelize>,
 InferCreationAttributes<TeamModelSequelize>> {
-  declare id: CreateOptions<number>
+  declare id: CreateOptions<number>;
   declare teamName: string;
 }
 
@@ -17,12 +23,12 @@ TeamModelSequelize.init({
   teamName: {
     type: DataTypes.STRING,
     allowNull: false,
-  }
+  },
 }, {
-    sequelize: db,
-    modelName: 'teams',
-    timestamps: false,
-    underscored: true,
+  sequelize: db,
+  modelName: 'teams',
+  timestamps: false,
+  underscored: true,
 });
 
-export default TeamModelSequelize
+export default TeamModelSequelize;
