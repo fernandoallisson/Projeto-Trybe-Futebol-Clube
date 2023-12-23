@@ -4,7 +4,7 @@ export default {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.bulkInsert(
       'teams',
-      [
+      [ 
         {
           team_name: 'Avaí/Kindermann',
         },
