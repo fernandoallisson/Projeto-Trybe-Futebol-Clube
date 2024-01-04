@@ -1,4 +1,4 @@
-import { DataType, DataTypes, Model, QueryInterface } from "sequelize";
+import { DataTypes, Model, QueryInterface } from "sequelize";
 import { ITeams } from '../../../src/Interfaces/index';
 
 export default {
