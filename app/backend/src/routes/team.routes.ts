@@ -1,13 +1,28 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import TeamController from '../controller/team.controller';
 
 const teamController = new TeamController();
 const router = Router();
 
-router.get('/', teamController.findAll);
-router.get('/:id', teamController.findById);
-router.post('/', teamController.create);
-router.put('/:id', teamController.update);
-router.delete('/:id', teamController.delete);
+router.get(
+  '/',
+  (req: Request, res: Response) => teamController.findAll(req, res),
+);
+router.get(
+  '/:id',
+  (req: Request, res: Response) => teamController.findById(req, res),
+);
+router.delete(
+  '/:id',
+  (req: Request, res: Response) => teamController.delete(req, res),
+);
+router.put(
+  '/:id',
+  (req: Request, res: Response) => teamController.update(req, res),
+);
+router.post(
+  '/',
+  (req: Request, res: Response) => teamController.create(req, res),
+);
 
 export default router;
