@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import TeamController from '../controller/team.controller';
 
-const teamController = new TeamController();
 const router = Router();
+const teamController = new TeamController();
 
 router.get(
   '/',
