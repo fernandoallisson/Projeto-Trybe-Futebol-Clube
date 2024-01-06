@@ -30,8 +30,9 @@ MatchModelSequelize.init({
     allowNull: false,
     field: 'home_team_id',
     references: {
-      model: TeamModelSequelize,
-      key: 'id',
+      model: {
+        tableName: 'teams',
+      },
     },
   },
   homeTeamGoals: {
@@ -44,8 +45,9 @@ MatchModelSequelize.init({
     allowNull: false,
     field: 'away_team_id',
     references: {
-      model: TeamModelSequelize,
-      key: 'id',
+      model: {
+        tableName: 'teams',
+      },
     },
   },
   awayTeamGoals: {
