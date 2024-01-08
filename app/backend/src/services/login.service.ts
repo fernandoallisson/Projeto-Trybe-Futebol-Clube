@@ -21,10 +21,10 @@ class LoginService {
   }
 
   public async login({ email, password }: ILogin): Promise<ServiceResponse<{ token: string }>> {
+    if (!email || !password) throw new Errors('All fields must be filled', 400);
+
     const { error } = loginSchema.validate({ email, password });
     if (error) throw new Errors('Invalid email or password', 401);
-
-    if (!email || !password) throw new Errors('All fields must be filled', 400);
 
     const user = await this.userModel.findByEmail(email);
     if (!user || !bycrpt.compareSync(password, user.password)) {
