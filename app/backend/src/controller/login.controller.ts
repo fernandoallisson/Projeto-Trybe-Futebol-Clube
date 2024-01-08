@@ -3,7 +3,11 @@ import LoginService from '../services/login.service';
 import IAuth from '../Interfaces/User/Auth';
 
 class LoginController {
-  private loginService = new LoginService();
+  private loginService: LoginService;
+
+  constructor() {
+    this.loginService = new LoginService();
+  }
 
   public async login(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;

@@ -3,4 +3,9 @@ type ServiceResponse<F> = {
   data: F,
 };
 
+export type ServiceResponseMessage = {
+  message?: string,
+  role?: string,
+};
+
 export default ServiceResponse;
