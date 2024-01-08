@@ -17,13 +17,13 @@ router.get(
   },
 );
 
-router.put(
+router.patch(
   '/:id/finish',
   authMiddleware,
   (req: Request, res: Response) => matchController.finishedMatches(req, res),
 );
 
-router.put(
+router.patch(
   '/:id',
   authMiddleware,
   (req: Request, res: Response) => matchController.updateMatch(req, res),

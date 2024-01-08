@@ -15,7 +15,8 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: { tableName: 'teams' }
+          model: 'teams',
+          key: 'id',
         },
       },
       homeTeamGoals: {
@@ -28,7 +29,8 @@ export default {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: { tableName: 'teams' }
+          model: 'teams',
+          key: 'id',
         },
       },
       awayTeamGoals: {
