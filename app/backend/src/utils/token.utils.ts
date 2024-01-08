@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import IToken from '../Interfaces/User/IToken';
 import Errors from './Errors';
 
-const secret = process.env.JWT_SECRET || 'secret';
+const secret = process.env.JWT_SECRET || 'amigão';
 
 const generateToken = (payload: IToken): string => {
   const token = jwt.sign(payload, secret);
@@ -14,7 +14,7 @@ const validateToken = (token: string): IToken => {
     const payload = jwt.verify(token, secret);
     return payload as IToken;
   } catch (error: unknown) {
-    throw new Errors('Invalid token', 401);
+    throw new Errors('Token must be a valid token', 401);
   }
 };
 
