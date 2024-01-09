@@ -11,7 +11,7 @@ import tokenUtils from '../utils/token.utils';
 
 chai.use(chaiHttp);
 
-describe.only('Auth', () => {
+describe('Auth', () => {
   beforeEach(() => {
     sinon.restore();
   });
