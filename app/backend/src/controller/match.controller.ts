@@ -28,6 +28,18 @@ class MatchController {
     );
     return res.status(response.statusCode).json(response.data);
   }
+
+  public async createMatch(req: Request, res: Response): Promise<Response> {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const response = await this.matchService.createMatch({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+    return res.status(response.statusCode).json(response.data);
+  }
 }
 
 export default MatchController;
