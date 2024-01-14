@@ -18,6 +18,7 @@ export default {
           model: 'teams',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       homeTeamGoals: {
         field: 'home_team_goals',
@@ -32,6 +33,7 @@ export default {
           model: 'teams',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       awayTeamGoals: {
         field: 'away_team_goals',
