@@ -30,10 +30,10 @@ MatchModelSequelize.init({
     allowNull: false,
     field: 'home_team_id',
     references: {
-      model: {
-        tableName: 'teams',
-      },
+      model: 'teams',
+      key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
@@ -45,10 +45,10 @@ MatchModelSequelize.init({
     allowNull: false,
     field: 'away_team_id',
     references: {
-      model: {
-        tableName: 'teams',
-      },
+      model: 'teams',
+      key: 'id',
     },
+    onDelete: 'CASCADE',
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,
@@ -63,8 +63,7 @@ MatchModelSequelize.init({
   },
 }, {
   sequelize: db,
-  modelName: 'Match',
-  tableName: 'matches',
+  modelName: 'Matches',
   timestamps: false,
   underscored: true,
 });

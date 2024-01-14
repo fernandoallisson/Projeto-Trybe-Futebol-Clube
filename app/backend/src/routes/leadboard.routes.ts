@@ -1,9 +1,10 @@
-import { Request, Response, Router } from 'express';
+import { Router } from 'express';
 import LeadboardController from '../controller/leadboard.controller';
 
 const router = Router();
 
-router.get('/home', (req: Request, res: Response) => LeadboardController.getAllLeadboard(req, res));
-router.get('/away', (req: Request, res: Response) => LeadboardController.getAllLeadboard(req, res));
+router
+  .get('/home', LeadboardController.getAllLeadboard)
+  .get('/away', LeadboardController.getAllLeadboard);
 
 export default router;

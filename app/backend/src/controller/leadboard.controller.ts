@@ -4,8 +4,8 @@ import LeadboardService from '../services/leadboard.service';
 class LeadboardController {
   static async getAllLeadboard(req: Request, res: Response): Promise<Response> {
     const params = req.path.split('/')[1];
-    return LeadboardService.getAllLeadboard(params)
-      .then(({ status, data }) => res.status(200).json({ status, data }));
+    return LeadboardService.getAllLeaderBoardHomeOrAway(params)
+      .then(({ data }) => res.status(200).json(console.log(data)));
   }
 }
 

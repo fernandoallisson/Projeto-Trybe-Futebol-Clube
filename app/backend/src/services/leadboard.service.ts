@@ -1,54 +1,82 @@
 import LeadboardUtils from '../utils/leadboard.utils';
 import TeamModelSequelize from '../database/models/team-model-sequelize';
 import MatchModelSequelize from '../database/models/match-model-sequelize';
-import ILeadboardResponse from '../Interfaces/leadboard/ILeadboardResponse';
-import IMacth from '../Interfaces/Match/IMatch';
-import ILeadboard from '../Interfaces/leadboard/ILeadeboard';
-import ILeadboardReturn from '../Interfaces/leadboard/ILeadboardReturn';
 
-class LeadboardService {
-  static async getAllLeadboard(homeWay: string): Promise<ILeadboardReturn> {
+interface LeaderBoardResponse {
+  id: number;
+  teamName: string;
+  homeTeam?: Teams[];
+  awayTeam?: Teams[];
+}
+
+interface Teams {
+  id: number;
+  homeTeamId: number;
+  homeTeamGoals: number;
+  awayTeamId: number;
+  awayTeamGoals: number;
+  inProgress: boolean;
+}
+
+interface LeaderBoard {
+  name: string;
+  totalPoints: number;
+  totalGames: number;
+  totalVictories: number;
+  totalDraws: number;
+  totalLosses: number;
+  goalsFavor: number;
+  goalsOwn: number;
+  efficiency: number | string;
+  goalsBalance: number;
+}
+
+interface LeaderBoardReturns {
+  status: string;
+  data: LeaderBoard[];
+}
+
+export default class LeaderBoardService {
+  static getAllLeaderBoardHomeOrAway(homeAway: string): Promise<LeaderBoardReturns> {
     return TeamModelSequelize.findAll({
       include: {
         model: MatchModelSequelize,
-        as: `${homeWay}Team`,
+        as: `${homeAway}Team`,
         where: { inProgress: false },
       },
     })
-      .then((teams) => {
-        const allLeadboard = this.getAllLeaderBoardHomeReturns(
-          homeWay,
-          teams as unknown as ILeadboardResponse[],
+      .then((teamsWithMatches) => {
+        const allBoards = this.getAllLeaderBoardHomeReturns(
+          homeAway,
+          teamsWithMatches as unknown as LeaderBoardResponse[],
         );
-        return { status: 'success', data: allLeadboard };
+        return { status: 'successful', data: allBoards };
       });
   }
 
-  static getAllLeaderBoardHomeReturns(
-    homeAway: string,
-    allLeaderBoards: ILeadboardResponse[],
-  ): ILeadboard[] {
-    const leaderBoard = allLeaderBoards.map((team) => {
-      const helpers = new LeadboardUtils();
-      if (homeAway === 'home' || homeAway === 'away') {
-        const matches = homeAway === 'home' ? team.homeTeam : team.awayTeam;
-        return helpers.leaderboardReturn(homeAway, team.teamName, matches as IMacth[]);
-      }
-      return helpers.leaderboardReturn('home', team.teamName, team.homeTeam as IMacth[]);
-    });
-
-    const ordered = this.orderedLeaderBoard(leaderBoard);
-
-    return ordered;
-  }
-
-  static orderedLeaderBoard(leaderBoard: ILeadboard[]) {
+  static orderedLeaderBoard(leaderBoard: LeaderBoard[]) {
     const orderedLeaderBoard = leaderBoard
       .sort((a, b) => b.goalsFavor - a.goalsFavor)
       .sort((a, b) => b.goalsBalance - a.goalsBalance)
       .sort((a, b) => b.totalPoints - a.totalPoints);
+
+    return orderedLeaderBoard;
+  }
+
+  static getAllLeaderBoardHomeReturns(
+    homeAway: string,
+    allLeaderBoards: LeaderBoardResponse[],
+  ): LeaderBoard[] {
+    const leaderBoard = allLeaderBoards.map((team) => {
+      const helpers = new LeadboardUtils();
+      if (homeAway === 'home' || homeAway === 'away') {
+        const matches = homeAway === 'home' ? team.homeTeam : team.awayTeam;
+        return helpers.leaderboardReturn(homeAway, team.teamName, matches as Teams[]);
+      }
+      return helpers.leaderboardReturn('home', team.teamName, team.homeTeam as Teams[]);
+    });
+    const orderedLeaderBoard = this.orderedLeaderBoard(leaderBoard);
+
     return orderedLeaderBoard;
   }
 }
-
-export default LeadboardService;
